@@ -1,0 +1,128 @@
+.container {
+  display: flex;
+}
+.box {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px dashed rgb(155, 151, 151);
+  height: 100%;
+  margin: 10px;
+}
+.productConatiner {
+  padding: 0px 0px;
+}
+.container1 {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  background-color: rgb(214, 211, 211);
+}
+
+.categoryItem {
+  padding: 8px 20px;
+  border-bottom: 1px solid rgb(155, 151, 151);
+  cursor: pointer;
+  z-index: 10;
+}
+.categoryItemfocus {
+  background-color: IndianRed;
+}
+
+.categoryHeading {
+  padding: 5px 20px;
+  display: flex;
+}
+.categoryHeading div:first-child {
+  flex-grow: 1;
+}
+
+.itemDescription {
+  line-height: 15px;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: #f3f3f3;
+  flex-grow: 1;
+}
+.itemImg {
+  width: 100%;
+}
+.btnclass {
+  padding: 15px 0px 30px 0px;
+}
+
+.button {
+  background-color: IndianRed;
+  border: none;
+  color: white;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  /* height: 35px; */
+  margin: 4px 2px;
+
+  cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
+  .categoryHeading {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .itemImg {
+    width: 80%;
+  }
+  .container1 {
+    height: 100%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .hidePrice {
+    display: none !important;
+  }
+  .button {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .displaySmNone {
+    display: none;
+  }
+  .hideInDekstop {
+    display: none;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .hideLgDevice {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .hideSM {
+    display: none;
+  }
+  .hideLgDevice {
+    display: none;
+  }
+  .itemDescription {
+    height: 87% !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .hideSM {
+    display: none;
+  }
+  .hideLgDevice {
+    width: 100%;
+  }
+  .itemDescription {
+    overflow: hidden;
+  }
+}

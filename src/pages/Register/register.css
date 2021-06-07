@@ -1,0 +1,20 @@
+.signUpWrapper {
+  width: 60%;
+  margin: auto;
+  padding: 70px 0px;
+}
+.inputField {
+  border: none;
+  border-bottom: 2px solid rgb(17, 228, 200);
+  border-radius: unset;
+}
+.inputField:focus {
+  border: none;
+  outline: none !important;
+}
+.buttonSignUp {
+  background-color: indianred;
+}
+.errorMsg {
+  color: #d8000c;
+}
