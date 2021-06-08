@@ -1,93 +1,84 @@
-import React from "react";
-import Form from "react-bootstrap/Form";
-import { Container, Row, Col } from "react-bootstrap";
-import { useState } from "react";
+import React, { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { Col, Container, Form, Row } from "react-bootstrap";
 import { useHistory } from "react-router";
-import { useContext } from "react";
 import { AppContext } from "../../context/userContext";
 import { LOGIN } from "../../context/actionTypes";
-
 import "./signIn.css";
+
+const schema = yup.object().shape({
+  emailId: yup.string().email().required(),
+  password: yup.string().min(4).max(15).required(),
+});
 
 export default function SignIn() {
   const history = useHistory();
   const { dispatch } = useContext(AppContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState("");
-  const [wrongDetails, setWrongdetails] = useState(false);
 
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  function validateUser() {
+  function validateUser(data) {
     const registeredEmail = JSON.parse(localStorage.getItem("emailid"));
     const registeredPassword = JSON.parse(localStorage.getItem("password"));
 
     let formisValid = false;
-    if (registeredEmail === email && registeredPassword === password) {
+    if (
+      registeredEmail === data.emailId &&
+      registeredPassword === data.password
+    ) {
       formisValid = true;
     }
-    setErrors("Incorrect EmailID and password");
+
     return formisValid;
   }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (validateUser()) {
-      setEmail("");
-      setPassword("");
-      setErrors("");
+  const onSubmit = (data) => {
+    if (validateUser(data)) {
       dispatch({ type: LOGIN });
       history.push("/");
-    } else {
-      setWrongdetails(true);
     }
-  }
+  };
+
   return (
-    <div className="loginWrapper">
+    <div className="signUpWrapper">
       <Container>
         <Row>
           <Col md={6}>
-            <h3>Login</h3>
-            <p>Get access to your Orders,Wishlist and Recommendations.</p>
+            <h3>Signup</h3>
+            <p>We do not share your personal details with anyone.</p>
           </Col>
           <Col md={6}>
-            {wrongDetails && (
-              <Form.Label className="errorMsg">
-                Incorrect email or Password
-              </Form.Label>
-            )}
-            <Form onSubmit={handleSubmit}>
-              <Form.Group size="lg" controlId="email">
-                <Form.Label className="label">Email</Form.Label>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <Form.Group size="lg" controlId="emailId">
+                <Form.Label>Email</Form.Label>
                 <Form.Control
                   className="inputField"
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  name="emailId"
+                  {...register("emailId")}
                 />
-                {!email && <div className="errorMsg">{errors}</div>}
+                <p className="errorMsg"> {errors.emailId?.message} </p>
               </Form.Group>
               <Form.Group size="lg" controlId="password">
-                <Form.Label className="label">Password</Form.Label>
+                <Form.Label>Password</Form.Label>
                 <Form.Control
                   className="inputField"
                   type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  name="password"
+                  {...register("password")}
                 />
-                {!password && <div className="errorMsg">{errors}</div>}
+                <p className="errorMsg"> {errors.password?.message} </p>
               </Form.Group>
-              <button
-                className="buttonLogin"
-                block
-                size="lg"
-                type="submit"
-                disabled={!validateForm()}
-              >
-                Login
+
+              <button className="buttonSignUp" block size="lg" type="submit">
+                Signup
               </button>
             </Form>
           </Col>
