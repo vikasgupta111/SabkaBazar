@@ -14,15 +14,15 @@ import CartResponsive from "./pages/Cart/CartResponsive";
 
 function App() {
   // Storing ContextApi state in localStorage
-  let contextData =
-    JSON.parse(localStorage.getItem("contextState")) || initialState;
-  const [state, dispatch] = useReducer(shopReducer, contextData);
-  useEffect(() => {
-    localStorage.setItem("contextState", JSON.stringify(state));
-  }, [state]);
+  // let contextData =
+  //   JSON.parse(localStorage.getItem("contextState")) || initialState;
+  const [state, dispatch] = useReducer(shopReducer, initialState);
+  // useEffect(() => {
+  //   localStorage.setItem("contextState", JSON.stringify(state));
+  // }, [state]);
 
   return (
-    <AppContext.Provider value={{ state: contextData, dispatch: dispatch }}>
+    <AppContext.Provider value={{ state, dispatch: dispatch }}>
       <Layout>
         {state.showCartDrawer && <CartModal></CartModal>}
         <Switch>
