@@ -1,4 +1,3 @@
-import "./App.css";
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
@@ -10,16 +9,8 @@ import { CartModal } from "./pages/Cart";
 import Layout from "./layout/Layout";
 import { AppContext } from "./context/userContext";
 import { useReducer } from "react";
-import { shopReducer } from "./context/reducer";
+import { shopReducer, initialState } from "./context/reducer";
 import CartResponsive from "./pages/Cart/CartResponsive";
-
-const initialState = {
-  productClicked: false,
-  cart: [],
-  loggedIn: true,
-  showCartDrawer: false,
-  categoryClick: "",
-};
 
 function App() {
   const [state, dispatch] = useReducer(shopReducer, initialState);

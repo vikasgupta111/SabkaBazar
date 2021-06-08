@@ -1,11 +1,11 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
-import { Button, Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import { useContext } from "react";
 import { AppContext } from "../../context/userContext";
-import { LOGIN } from "../../context/reducer";
+import { LOGIN } from "../../context/actionTypes";
 
 import "./signIn.css";
 
@@ -41,7 +41,6 @@ export default function SignIn() {
       setErrors("");
       dispatch({ type: LOGIN });
       history.push("/");
-      // alert("Successfully Logged In");
     } else {
       setWrongdetails(true);
     }

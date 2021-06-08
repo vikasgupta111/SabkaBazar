@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useHistory } from "react-router";
 import { AppContext } from "../../context/userContext";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { LOGIN } from "../../context/reducer";
+import { LOGIN } from "../../context/actionTypes";
 
 import "./register.css";
 
@@ -54,7 +54,6 @@ export default function Register() {
       setfields(fields);
       dispatch({ type: LOGIN });
       history.push("/");
-      //alert("Form submitted");
     } else {
       setWrongdetails(true);
     }

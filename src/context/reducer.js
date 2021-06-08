@@ -1,19 +1,20 @@
-export const LOGIN = "LOGIN";
-export const LOGOUT = "LOGOUT";
-export const TOGGLE_CART_DRAWER = "TOGGLE_CART_DRAWER";
-export const HANDLE_CLICK_FROM_PRODUCT = "HANDLE_CLICK_FROM_PRODUCT";
-export const HANDLE_CLICK_FROM_CATEGORY = "HANDLE_CLICK_FROM_CATEGORY";
-export const HANDLE_CLICK_FROM_HOMESCREEN = "HANDLE_CLICK_FROM_HOMESCREEN";
-export const ADD_TO_CART = "ADD_TO_CART";
-export const DELETE_FROM_CART = "DELETE_FROM_CART";
+import { LOGIN } from "./actionTypes";
+import { LOGOUT } from "./actionTypes";
+import { TOGGLE_CART_DRAWER } from "./actionTypes";
+import { HANDLE_CLICK_FROM_PRODUCT } from "./actionTypes";
+import { HANDLE_CLICK_FROM_CATEGORY } from "./actionTypes";
+import { HANDLE_CLICK_FROM_HOMESCREEN } from "./actionTypes";
+import { ADD_TO_CART } from "./actionTypes";
+import { DELETE_FROM_CART } from "./actionTypes";
 
-const initialState = {
+export const initialState = {
   productClicked: false,
   cart: [],
   loggedIn: true,
   showCartDrawer: false,
   categoryClick: "",
 };
+
 export const shopReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:

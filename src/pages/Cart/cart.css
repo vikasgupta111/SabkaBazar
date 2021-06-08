@@ -45,22 +45,22 @@
   margin-right: 12px;
   cursor: pointer;
 } */
-.itembox {
+/* .itembox {
   display: inline-block;
   line-height: 15px;
   font-size: 12px;
   font-weight: bold;
-}
+} */
 
-.itembox div {
+/* .itembox div {
   display: flex;
-}
-.rowItem {
+} */
+/* .rowItem {
   background-color: white;
 }
 .rowItem.row {
   margin-top: 10px;
-}
+} */
 /* .checkOut {
   margin: auto;
   width: 90%;

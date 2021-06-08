@@ -65,3 +65,26 @@
     justify-content: space-between;
   }
 }
+
+/* //footer */
+@media screen and (max-width: 480px) {
+  .footerStyle {
+    padding: 20px 0px;
+    text-align: center;
+    background-color: rgb(214, 211, 211);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .footerStyle {
+    padding: 20px 195px;
+    background-color: rgb(214, 211, 211);
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .footerStyle {
+    padding: 20px 58px;
+    background-color: rgb(214, 211, 211);
+  }
+}

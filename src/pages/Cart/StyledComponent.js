@@ -1,8 +1,10 @@
 import styled from "styled-components";
+import { Row, Col } from "react-bootstrap";
 
 export const CartWrapper = styled.div`
   width: 100%;
 `;
+
 export const CartHeader = styled.div`
   display: flex;
   background-color: black;
@@ -112,7 +114,9 @@ export const ItemTotalCost = styled.div`
 `;
 export const LowestPrice = styled.div`
   display: flex;
-  margin-top: 10px;
+  margin: 14px 10px;
+  padding: 10px;
+  align-items: center;
   background-color: white;
 `;
 
@@ -129,12 +133,10 @@ export const MainWrapper = styled.div`
 export const CartBackground = styled.div`
   @media only screen and (min-width: 1025px) {
     margin: 0px 0px;
-    /* opacity: 0.2; */
     position: absolute;
     width: 30%;
     right: 5%;
-    /* margin-top: 15%; */
-    /* top: 15%; */
+
     bottom: 0;
     height: 90%;
     display: flex;
@@ -144,16 +146,12 @@ export const CartBackground = styled.div`
   }
   @media only screen and (max-width: 1024px) {
     margin: 0px 0px;
-    /* opacity: 0.2; */
     position: absolute;
     width: 100%;
     right: 0%;
-    /* margin-top: 15%; */
-    /* top: 15%; */
     bottom: 0;
     height: 90%;
     display: flex;
-
     flex-direction: column;
     background-color: white;
   }
@@ -163,4 +161,23 @@ export const CloseIcon = styled.div`
   margin-left: auto;
   margin-right: 12px;
   cursor: pointer;
+`;
+
+export const CartItem = styled.div`
+  .rowItem {
+    background-color: white;
+    margin-top: 10px;
+  }
+  .itembox {
+    display: flex;
+    flex-direction: column;
+    line-height: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .itembox div {
+    display: flex;
+  }
 `;
