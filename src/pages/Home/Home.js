@@ -6,8 +6,7 @@ import { useHistory } from "react-router";
 import { useContext } from "react";
 import { AppContext } from "../../context/userContext";
 import useApiData from "../../useApiData";
-import { HANDLE_CLICK_FROM_HOMESCREEN } from "../../context/reducer";
-import useApi from "./useApi";
+import { HANDLE_CLICK_FROM_HOMESCREEN } from "../../context/actionTypes";
 
 import {
   CategoryWrapper,
@@ -19,8 +18,6 @@ import {
   CategoryDescription,
 } from "./StyledComponent";
 
-const URL = "http://localhost:3000";
-
 export default function Home() {
   const history = useHistory();
   const { dispatch } = useContext(AppContext);
@@ -30,17 +27,18 @@ export default function Home() {
   const [loading, setLoading] = useState();
 
   const categoriesVal = useApiData("http://localhost:5000/categories"); // categories api response
-  const bannersList = useApi(); //Banners api response
-  useEffect(() => {
-    const banners = bannersList.map((item) => (
-      <img
-        width="90%"
-        src={`${URL}${item.bannerImageUrl}`}
-        alt={item.bannerImageAlt}
-      />
-    ));
-    setData(banners);
-  }, [bannersList]);
+  const bannersList = useApiData("http://localhost:5000/banners"); //Banners api response
+
+  // useEffect(() => {
+  //   const banners = bannersList.map((item) => (
+  //     <img
+  //       width="90%"
+  //       src={`${item.bannerImageUrl}`}
+  //       alt={item.bannerImageAlt}
+  //     />
+  //   ));
+  //   setData(banners);
+  // }, [bannersList]);
 
   const handleCategoryClick = (id) => {
     dispatch({ type: HANDLE_CLICK_FROM_HOMESCREEN, payload: id });
@@ -56,9 +54,17 @@ export default function Home() {
           indicators={true}
           autoPlay={true}
         >
-          {data.map((item) => {
-            return <Carousel.Item>{item}</Carousel.Item>;
-          })}
+          {bannersList
+            .map((item) => (
+              <img
+                width="90%"
+                src={`${item.bannerImageUrl}`}
+                alt={item.bannerImageAlt}
+              />
+            ))
+            .map((item) => {
+              return <Carousel.Item>{item}</Carousel.Item>;
+            })}
         </Carousel>
       </Container>
       <Container>
@@ -68,13 +74,19 @@ export default function Home() {
               if (indx % 2 === 0) {
                 return (
                   <Row className="category">
-                    <Col xs={4}>
-                      <CategoryImg
-                        src={`${URL}${item.imageUrl}`}
-                        alt={item.name}
-                      />
+                    <Col xs={5}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: "100%",
+                        }}
+                      >
+                        <CategoryImg src={`${item.imageUrl}`} alt={item.name} />
+                      </div>
                     </Col>
-                    <Col className="categoryDetails" xs={8}>
+                    <Col className="categoryDetails" xs={7}>
                       <CategoryContent>
                         <CategoryName>{item.name}</CategoryName>
                         <CategoryDescription>
@@ -94,7 +106,7 @@ export default function Home() {
               } else {
                 return (
                   <Row className="category">
-                    <Col xs={8} className="categoryDetails">
+                    <Col xs={7} className="categoryDetails">
                       <CategoryContent>
                         <CategoryName>{item.name}</CategoryName>
                         <CategoryDescription>
@@ -110,11 +122,17 @@ export default function Home() {
                       </CategoryContent>
                     </Col>
 
-                    <Col xs={4}>
-                      <CategoryImg
-                        src={`${URL}${item.imageUrl}`}
-                        alt={item.name}
-                      />
+                    <Col xs={5}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: "100%",
+                        }}
+                      >
+                        <CategoryImg src={`${item.imageUrl}`} alt={item.name} />
+                      </div>
                     </Col>
                   </Row>
                 );

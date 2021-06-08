@@ -3,7 +3,6 @@ import { AppContext } from "../../context/userContext";
 import { useContext } from "react";
 import { useHistory } from "react-router";
 import { Row, Col } from "react-bootstrap";
-import "./cart.css";
 import MediaQuery from "react-responsive";
 import lowestPriceLogo from "../../assets/img/lowest-price.png";
 import {
@@ -20,12 +19,13 @@ import {
   MainWrapper,
   CartBackground,
   CloseIcon,
+  CartItem,
 } from "./StyledComponent";
 import {
   TOGGLE_CART_DRAWER,
   ADD_TO_CART,
   DELETE_FROM_CART,
-} from "../../context/reducer";
+} from "../../context/actionTypes";
 // import { CartHeader } from "./StyledComponent";
 
 const URL = "http://localhost:3000";
@@ -91,9 +91,9 @@ export default function CartModal() {
             )}
 
             {getFrequencyOfItems(state.cart).map((val) => (
-              <div>
+              <CartItem>
                 <Row key={val.item.id} className="rowItem">
-                  <Col lg={3} className="itembox">
+                  <Col sm={2} md={3} className="itembox">
                     <img
                       src={`${URL}${val.item.imageURL}`}
                       alt="Sabka Bazar"
@@ -101,8 +101,9 @@ export default function CartModal() {
                       height="80px"
                     />
                   </Col>
-                  <Col lg={6} className="itembox">
-                    <p>{val.item.name}</p>
+
+                  <Col sm={8} md={6} className="itembox">
+                    <div>{val.item.name}</div>
                     <div>
                       <CounterButton
                         onClick={() => handleRemoveFromCart(val.item)}
@@ -117,18 +118,18 @@ export default function CartModal() {
                     </div>
                   </Col>
 
-                  <Col lg={3}>
+                  <Col sm={2} md={3}>
                     <ItemTotalCost>
                       {"Rs." + val.item.price * val.count}
                     </ItemTotalCost>
                   </Col>
                 </Row>
-              </div>
+              </CartItem>
             ))}
             {state.cart.length !== 0 && (
               <LowestPrice>
                 <img src={lowestPriceLogo} width="25%" alt="lowest Price" />
-                <label>You won't find it cheaper anywhere</label>
+                <div>You won't find it cheaper anywhere</div>
               </LowestPrice>
             )}
           </CartContent>

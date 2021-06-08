@@ -2,32 +2,21 @@ import React from "react";
 import "./productStyle.css";
 import { useContext } from "react";
 import { AppContext } from "../../context/userContext";
-import axios from "axios";
 import { Col, Row } from "react-bootstrap";
-import { ADD_TO_CART } from "../../context/reducer";
-
-const URL = "http://localhost:3000";
+import { PostApiCall } from "../../useApiData";
 
 export default function ProductData({ allitems, categoryID }) {
   const { dispatch } = useContext(AppContext);
 
   const handleAddToCart = (item) => {
+    const itemToBeAdded = item;
     const productID = item.id;
-    //todo make request and change below code acc. to response
-    axios({
-      method: "post",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      url: "http://localhost:5000/addToCart",
-      data: productID,
-    }).then((res) => {
-      console.log(res);
-      dispatch({ type: ADD_TO_CART, payload: item });
-    });
+    PostApiCall(itemToBeAdded, productID, dispatch);
   };
 
   return (
     <div>
-      <Row>
+      <Row noGutters>
         {allitems
           .filter((item) => {
             if (!categoryID) {
@@ -40,9 +29,12 @@ export default function ProductData({ allitems, categoryID }) {
             <>
               <Col lg={6} md={6} xl={3} sm={12} xs={12}>
                 <div className="box  " key={item.id}>
-                  <Row>
+                  <Row className="itemBorder" noGutters>
                     <Col md={12}>
-                      <div className="pl-2 pr-2" style={{ height: "75px" }}>
+                      <div
+                        className=" itemHeader pl-2 pr-2"
+                        style={{ height: "75px" }}
+                      >
                         <strong>{item.name}</strong>
                       </div>
                     </Col>
@@ -50,12 +42,16 @@ export default function ProductData({ allitems, categoryID }) {
                     <Col lg={12} md={6} sm={6} xs={6}>
                       <div
                         className="pl-2 pr-2 "
-                        style={{ maxHeight: "200px" }}
+                        style={{ overflow: "hidden" }}
                       >
                         <img
-                          style={{ height: "100%", margin: "auto" }}
+                          style={{
+                            height: "100%",
+                            margin: "auto",
+                            transform: " scale(1.2)",
+                          }}
                           className="itemImg"
-                          src={`${URL}${item.imageURL}`}
+                          src={`${item.imageURL}`}
                           alt="Sabka Bazar"
                         ></img>
                       </div>
@@ -110,6 +106,7 @@ export default function ProductData({ allitems, categoryID }) {
                       </div>
                     </Col>
                     <button
+                      style={{ marginTop: "20px", marginBottom: "14px" }}
                       className="button hideLgDevice"
                       onClick={() => handleAddToCart(item)}
                     >

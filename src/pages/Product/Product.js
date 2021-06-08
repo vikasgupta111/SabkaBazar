@@ -5,15 +5,12 @@ import { Container, Row, Col } from "react-bootstrap";
 import {
   HANDLE_CLICK_FROM_PRODUCT,
   HANDLE_CLICK_FROM_CATEGORY,
-} from "../../context/reducer";
+} from "../../context/actionTypes";
 import ProductData from "./ProductData";
 import "./productStyle.css";
 import { useContext } from "react";
 import { AppContext } from "../../context/userContext";
 import useApiData from "../../useApiData";
-import useApi from "./useApi";
-
-//const URL = "http://localhost:3000";
 
 export default function Product() {
   const { state, dispatch } = useContext(AppContext);
@@ -25,7 +22,7 @@ export default function Product() {
   const [categoryID, setCategoryID] = useState("");
 
   const categoriesVal = useApiData("http://localhost:5000/categories"); //categories api response
-  const productList = useApi(); // products api response
+  const productList = useApiData("http://localhost:5000/products"); // products api response
   useEffect(() => {
     setData(productList);
     setCategoriesArr([]);
@@ -33,7 +30,6 @@ export default function Product() {
 
   const handleCategoryClick = (id) => {
     setCategoryID((prevState) => {
-      console.log(prevState, id);
       if (prevState === id) {
         return dispatch({ type: HANDLE_CLICK_FROM_PRODUCT });
       } else {

@@ -12,7 +12,7 @@ import {
   TOGGLE_CART_DRAWER,
   LOGOUT,
   HANDLE_CLICK_FROM_PRODUCT,
-} from "../context/reducer";
+} from "../context/actionTypes";
 
 export default function Nav() {
   const { state, dispatch } = useContext(AppContext);

@@ -3,7 +3,6 @@ import { AppContext } from "../../context/userContext";
 import { useContext } from "react";
 import { useHistory } from "react-router";
 import { Row, Col, Container } from "react-bootstrap";
-import "./cart.css";
 import MediaQuery from "react-responsive";
 import {
   CartWrapper,
@@ -16,13 +15,14 @@ import {
   CounterButton,
   ItemTotalCost,
   LowestPrice,
+  CartItem,
 } from "./StyledComponent";
 import lowestPriceLogo from "../../assets/img/lowest-price.png";
 import {
   TOGGLE_CART_DRAWER,
   ADD_TO_CART,
   DELETE_FROM_CART,
-} from "../../context/reducer";
+} from "../../context/actionTypes";
 
 const URL = "http://localhost:3000";
 
@@ -87,7 +87,7 @@ export default function CartResponsive() {
               )}
 
               {getFrequencyOfItems(state.cart).map((val) => (
-                <div>
+                <CartItem>
                   <Row key={val.item.id} className="rowItem">
                     <Col md={2} xs={3} className="itembox">
                       <img
@@ -121,7 +121,7 @@ export default function CartResponsive() {
                       </ItemTotalCost>
                     </Col>
                   </Row>
-                </div>
+                </CartItem>
               ))}
               {state.cart.length !== 0 && (
                 <LowestPrice>
