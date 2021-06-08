@@ -81,7 +81,7 @@ export default function SignIn() {
                 />
                 {!password && <div className="errorMsg">{errors}</div>}
               </Form.Group>
-              <Button
+              <button
                 className="buttonLogin"
                 block
                 size="lg"
@@ -89,7 +89,7 @@ export default function SignIn() {
                 disabled={!validateForm()}
               >
                 Login
-              </Button>
+              </button>
             </Form>
           </Col>
         </Row>

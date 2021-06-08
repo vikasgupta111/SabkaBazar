@@ -13,7 +13,13 @@
   outline: none !important;
 }
 .buttonSignUp {
-  background-color: indianred;
+  margin: auto;
+  width: 90%;
+  position: absolute;
+  background-color: IndianRed;
+  border: none;
+  outline: none;
+  color: white;
 }
 .errorMsg {
   color: #d8000c;

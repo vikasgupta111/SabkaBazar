@@ -221,9 +221,9 @@ export default function Register() {
                   <div className="errorMsg">{errors.confirmpassword}</div>
                 )}
               </Form.Group>
-              <Button className="buttonSignUp" block size="lg" type="submit">
+              <button className="buttonSignUp" block size="lg" type="submit">
                 Signup
-              </Button>
+              </button>
             </Form>
           </Col>
         </Row>
