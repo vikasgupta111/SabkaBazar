@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AliceCarousel from "react-alice-carousel";
-import "react-alice-carousel/lib/alice-carousel.css";
 import { Carousel } from "react-bootstrap";
 import "./home.css";
 import { Col, Container, Row } from "react-bootstrap";
@@ -10,6 +8,16 @@ import { AppContext } from "../../context/userContext";
 import useApiData from "../../useApiData";
 import { HANDLE_CLICK_FROM_HOMESCREEN } from "../../context/reducer";
 import useApi from "./useApi";
+
+import {
+  CategoryWrapper,
+  Wrapper,
+  CategoryImg,
+  CategoryContent,
+  CategoryName,
+  CategoryClick,
+  CategoryDescription,
+} from "./StyledComponent";
 
 const URL = "http://localhost:3000";
 
@@ -40,11 +48,11 @@ export default function Home() {
   };
 
   return (
-    <div style={{ marginTop: "3px" }}>
+    <Wrapper>
       <Container className="category my__carousel_main ">
         <Carousel
           interval={1000}
-          controls={true}
+          controls={window.innerWidth >= 768 ? true : false}
           indicators={true}
           autoPlay={true}
         >
@@ -52,45 +60,34 @@ export default function Home() {
             return <Carousel.Item>{item}</Carousel.Item>;
           })}
         </Carousel>
-
-        {/* <AliceCarousel
-          items={data}
-          // responsive={this.responsive}
-          autoPlayInterval={1000}
-          autoPlayDirection="ltr"
-          autoPlay={true}
-          fadeOutAnimation={true}
-          mouseTrackingEnabled={true}
-          disableAutoPlayOnAction={true}
-        /> */}
       </Container>
       <Container>
-        <div className="align-items-center">
+        <CategoryWrapper>
           {categoriesVal &&
             categoriesVal.map((item, indx) => {
               if (indx % 2 === 0) {
                 return (
                   <Row className="category">
                     <Col xs={4}>
-                      <img
-                        className="d-block w-100"
+                      <CategoryImg
                         src={`${URL}${item.imageUrl}`}
                         alt={item.name}
                       />
                     </Col>
-                    {/* <div></div> */}
                     <Col className="categoryDetails" xs={8}>
-                      <div className="categoryContent">
-                        <h5>{item.name}</h5>
-                        <p>{item.description}</p>
-                        <div
+                      <CategoryContent>
+                        <CategoryName>{item.name}</CategoryName>
+                        <CategoryDescription>
+                          {item.description}
+                        </CategoryDescription>
+                        <CategoryClick
                           onClick={() => {
                             handleCategoryClick(item.id);
                           }}
                         >
                           {`Explore ${item.key}`}
-                        </div>
-                      </div>
+                        </CategoryClick>
+                      </CategoryContent>
                     </Col>
                   </Row>
                 );
@@ -98,22 +95,23 @@ export default function Home() {
                 return (
                   <Row className="category">
                     <Col xs={8} className="categoryDetails">
-                      <div className="categoryContent">
-                        <h5>{item.name}</h5>
-                        <p>{item.description}</p>
-                        <div
+                      <CategoryContent>
+                        <CategoryName>{item.name}</CategoryName>
+                        <CategoryDescription>
+                          {item.description}
+                        </CategoryDescription>
+                        <CategoryClick
                           onClick={() => {
                             handleCategoryClick(item.id);
                           }}
                         >
                           {`Explore ${item.key}`}
-                        </div>
-                      </div>
+                        </CategoryClick>
+                      </CategoryContent>
                     </Col>
 
                     <Col xs={4}>
-                      <img
-                        className="d-block w-100"
+                      <CategoryImg
                         src={`${URL}${item.imageUrl}`}
                         alt={item.name}
                       />
@@ -122,8 +120,8 @@ export default function Home() {
                 );
               }
             })}
-        </div>
+        </CategoryWrapper>
       </Container>
-    </div>
+    </Wrapper>
   );
 }

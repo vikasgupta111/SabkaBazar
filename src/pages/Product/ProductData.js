@@ -5,7 +5,6 @@ import { AppContext } from "../../context/userContext";
 import axios from "axios";
 import { Col, Row } from "react-bootstrap";
 import { ADD_TO_CART } from "../../context/reducer";
-import MediaQuery from "react-responsive";
 
 const URL = "http://localhost:3000";
 
@@ -117,103 +116,6 @@ export default function ProductData({ allitems, categoryID }) {
                       {`  Buy Now @ ${item.price}`}
                     </button>
                   </Row>
-
-                  {/* {Desktop devices}
-                  <MediaQuery minDeviceWidth={1140}>
-                    <Col>
-                      <div className="pl-2 pr-2 ">
-                        <img
-                          style={{ width: "70%", height: "70%" }}
-                          className="itemImg"
-                          src={`${URL}${item.imageURL}`}
-                          alt="Sabka Bazar"
-                        ></img>
-                      </div>
-                      <div
-                        className="itemDescription"
-                        style={{ height: "55%" }}
-                      >
-                        <small>{item.description}</small>
-                      </div>
-                    </Col>
-                    <div className="pl-2 pr-2 pt-50 btnclass">
-                      <Row noGutters>
-                        <Col md={6}>
-                          <p>{`MRP RS.  ${item.price}`}</p>
-                        </Col>
-                        <Col md={6}>
-                          <button
-                            className="button"
-                            onClick={() => handleAddToCart(item)}
-                          >
-                            Buy Now
-                          </button>
-                        </Col>
-                      </Row>
-                    </div>
-                  </MediaQuery>
-
-                  {for tablet devices}
-                  <MediaQuery maxDeviceWidth={1024} minDeviceWidth={767}>
-                    <Row>
-                      <Col sm={6}>
-                        <div className="pl-2 pr-2 ">
-                          <img
-                            className="itemImg"
-                            src={`${URL}${item.imageURL}`}
-                            alt="Sabka Bazar"
-                          ></img>
-                        </div>
-                      </Col>
-                      <Col sm={6}>
-                        <div className="itemDescription">
-                          <small>{item.description}</small>
-                        </div>
-                      </Col>
-                    </Row>
-                    <div className="pl-2 pr-2 pt-50 btnclass">
-                      <Row noGutters>
-                        <Col md={12}>
-                          <button
-                            style={{ width: "100%" }}
-                            className="button"
-                            onClick={() => handleAddToCart(item)}
-                          >
-                            {`Buy Now @ RS.  ${item.price}`}
-                          </button>
-                        </Col>
-                      </Row>
-                    </div>
-                  </MediaQuery>
-                  {mobile devices}
-                  <MediaQuery maxDeviceWidth={425}>
-                    <Row>
-                      <Col xs={6}>
-                        <div className="pl-2 pr-2 ">
-                          <img
-                            className="itemImg"
-                            src={`${URL}${item.imageURL}`}
-                            alt="Sabka Bazar"
-                          ></img>
-                        </div>
-                      </Col>
-                      <Col xs={6}>
-                        <div className="itemDescription">
-                          <small>{item.description}</small>
-                        </div>
-
-                        <div className="pl-2 pr-2 pt-50 btnclass">
-                          <button
-                            style={{ width: "100%" }}
-                            className="button"
-                            onClick={() => handleAddToCart(item)}
-                          >
-                            <small>Buy Now @{`RS.${item.price}`} </small>
-                          </button>
-                        </div>
-                      </Col>
-                    </Row>
-                  </MediaQuery> */}
                 </div>
               </Col>
             </>

@@ -6,12 +6,27 @@ import { Row, Col } from "react-bootstrap";
 import "./cart.css";
 import MediaQuery from "react-responsive";
 import lowestPriceLogo from "../../assets/img/lowest-price.png";
-
+import {
+  CartWrapper,
+  CartHeader,
+  CartContent,
+  EmptyCartWrapper,
+  EmptyCart,
+  ButtonWrapper,
+  ButtonCheckout,
+  CounterButton,
+  ItemTotalCost,
+  LowestPrice,
+  MainWrapper,
+  CartBackground,
+  CloseIcon,
+} from "./StyledComponent";
 import {
   TOGGLE_CART_DRAWER,
   ADD_TO_CART,
   DELETE_FROM_CART,
 } from "../../context/reducer";
+// import { CartHeader } from "./StyledComponent";
 
 const URL = "http://localhost:3000";
 
@@ -52,29 +67,27 @@ export default function CartModal() {
 
   return (
     <MediaQuery minDeviceWidth={1025}>
-      <div className="mainBackground">
-        <div className="cartBackground">
-          <div className="cartHeader">
+      <MainWrapper>
+        <CartBackground>
+          <CartHeader>
             <strong>
               My Cart
               {state.cart.length !== 0 && `( ${state.cart.length}  item )`}
             </strong>
-            <div className="closeIcon" onClick={handleClose}>
-              x
-            </div>
-          </div>
+            <CloseIcon onClick={handleClose}>x</CloseIcon>
+          </CartHeader>
 
-          <div className="cartContent">
+          <CartContent>
             {state.cart.length === 0 && (
-              <div className="mainEmptyCart">
-                <div className="emptyCart">
+              <EmptyCartWrapper>
+                <EmptyCart>
                   <strong>No items in your Cart</strong>
                   <p>your favorite items are just a click away</p>
-                </div>
-                <button className="checkOut" onClick={HandleShopping}>
+                </EmptyCart>
+                <ButtonCheckout onClick={HandleShopping}>
                   Start Shopping
-                </button>
-              </div>
+                </ButtonCheckout>
+              </EmptyCartWrapper>
             )}
 
             {getFrequencyOfItems(state.cart).map((val) => (
@@ -91,50 +104,46 @@ export default function CartModal() {
                   <Col lg={6} className="itembox">
                     <p>{val.item.name}</p>
                     <div>
-                      <button
-                        className="counterButton"
+                      <CounterButton
                         onClick={() => handleRemoveFromCart(val.item)}
                       >
                         -
-                      </button>
+                      </CounterButton>
                       {val.count}
-                      <button
-                        className="counterButton"
-                        onClick={() => handleAddToCart(val.item)}
-                      >
+                      <CounterButton onClick={() => handleAddToCart(val.item)}>
                         +
-                      </button>
+                      </CounterButton>
                       <div>{"  x Rs." + val.item.price}</div>
                     </div>
                   </Col>
 
                   <Col lg={3}>
-                    <div className="itemtotalCost">
+                    <ItemTotalCost>
                       {"Rs." + val.item.price * val.count}
-                    </div>
+                    </ItemTotalCost>
                   </Col>
                 </Row>
               </div>
             ))}
             {state.cart.length !== 0 && (
-              <div className="lowestPrice">
+              <LowestPrice>
                 <img src={lowestPriceLogo} width="25%" alt="lowest Price" />
                 <label>You won't find it cheaper anywhere</label>
-              </div>
+              </LowestPrice>
             )}
-          </div>
+          </CartContent>
           {state.cart.length !== 0 && (
             <>
-              <div className="buttonWrapper">
+              <ButtonWrapper>
                 <p>Promocode can be applied on payment page</p>
-                <button className="checkOut" onClick={handleCheckout}>
+                <ButtonCheckout onClick={handleCheckout}>
                   Proceed To Checkout
-                </button>
-              </div>
+                </ButtonCheckout>
+              </ButtonWrapper>
             </>
           )}
-        </div>
-      </div>
+        </CartBackground>
+      </MainWrapper>
     </MediaQuery>
   );
 }

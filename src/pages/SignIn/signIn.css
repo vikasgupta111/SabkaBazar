@@ -13,7 +13,16 @@
 }
 
 .buttonLogin {
-  background-color: indianred;
+  margin: auto;
+  width: 90%;
+  position: absolute;
+  background-color: IndianRed;
+  border: none;
+  outline: none;
+  color: white;
+  /* left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, 65%); */
 }
 .errorMsg {
   color: #d8000c;

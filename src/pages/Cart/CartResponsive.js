@@ -5,7 +5,18 @@ import { useHistory } from "react-router";
 import { Row, Col, Container } from "react-bootstrap";
 import "./cart.css";
 import MediaQuery from "react-responsive";
-
+import {
+  CartWrapper,
+  CartHeader,
+  CartContent,
+  EmptyCartWrapper,
+  EmptyCart,
+  ButtonWrapper,
+  ButtonCheckout,
+  CounterButton,
+  ItemTotalCost,
+  LowestPrice,
+} from "./StyledComponent";
 import lowestPriceLogo from "../../assets/img/lowest-price.png";
 import {
   TOGGLE_CART_DRAWER,
@@ -50,27 +61,29 @@ export default function CartResponsive() {
 
   return (
     <MediaQuery maxDeviceWidth={1024}>
-      <Container>
-        <div style={{ width: "100%" }}>
-          <div style={{ height: "100%" }}>
-            <div className="cartHeader">
+      <Container style={{ minHeight: "90vh" }}>
+        <CartWrapper>
+          <div
+            style={{ height: "100%", display: "flex", flexDirection: "column" }}
+          >
+            <CartHeader>
               <strong>
                 My Cart
                 {state.cart.length !== 0 && `( ${state.cart.length}  item )`}
               </strong>
-            </div>
+            </CartHeader>
 
-            <div className="cartContent">
+            <CartContent>
               {state.cart.length === 0 && (
-                <div className="mainEmptyCart">
-                  <div className="emptyCart">
+                <EmptyCartWrapper>
+                  <EmptyCart>
                     <strong>No items in your Cart</strong>
                     <p>your favorite items are just a click away</p>
-                  </div>
-                  <button className="checkOut" onClick={HandleShopping}>
+                  </EmptyCart>
+                  <ButtonCheckout onClick={HandleShopping}>
                     Start Shopping
-                  </button>
-                </div>
+                  </ButtonCheckout>
+                </EmptyCartWrapper>
               )}
 
               {getFrequencyOfItems(state.cart).map((val) => (
@@ -87,50 +100,48 @@ export default function CartResponsive() {
                     <Col md={8} xs={6} className="itembox">
                       <p>{val.item.name}</p>
                       <div>
-                        <button
-                          className="counterButton"
+                        <CounterButton
                           onClick={() => handleRemoveFromCart(val.item)}
                         >
                           -
-                        </button>
+                        </CounterButton>
                         {val.Count}
-                        <button
-                          className="counterButton"
+                        <CounterButton
                           onClick={() => handleAddToCart(val.item)}
                         >
                           +
-                        </button>
+                        </CounterButton>
                         <div>{"  x Rs." + val.item.price}</div>
                       </div>
                     </Col>
 
                     <Col md={2} xs={3}>
-                      <div className="itemtotalCost">
+                      <ItemTotalCost>
                         {"Rs." + val.item.price * val.Count}
-                      </div>
+                      </ItemTotalCost>
                     </Col>
                   </Row>
                 </div>
               ))}
               {state.cart.length !== 0 && (
-                <div className="lowestPrice">
-                  <img src={lowestPriceLogo} width="25%" alt="lowest Price" />
+                <LowestPrice>
+                  <img src={lowestPriceLogo} width="100px" alt="lowest Price" />
                   <label>You won't find it cheaper anywhere</label>
-                </div>
+                </LowestPrice>
               )}
-            </div>
+            </CartContent>
             {state.cart.length !== 0 && (
               <>
-                <div className="buttonWrapper">
+                <ButtonWrapper>
                   <p>Promocode can be applied on payment page</p>
-                  <button className="checkOut" onClick={handleCheckout}>
+                  <ButtonCheckout onClick={handleCheckout}>
                     Proceed To Checkout
-                  </button>
-                </div>
+                  </ButtonCheckout>
+                </ButtonWrapper>
               </>
             )}
           </div>
-        </div>
+        </CartWrapper>
       </Container>
     </MediaQuery>
   );
