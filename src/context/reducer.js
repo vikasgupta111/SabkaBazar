@@ -10,7 +10,7 @@ import { DELETE_FROM_CART } from "./actionTypes";
 export const initialState = {
   productClicked: false,
   cart: [],
-  loggedIn: true,
+  loggedIn: false,
   showCartDrawer: false,
   categoryClick: "",
 };

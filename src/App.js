@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 
 import { Home } from "./pages/Home";
@@ -13,9 +13,16 @@ import { shopReducer, initialState } from "./context/reducer";
 import CartResponsive from "./pages/Cart/CartResponsive";
 
 function App() {
-  const [state, dispatch] = useReducer(shopReducer, initialState);
+  // Storing ContextApi state in localStorage
+  let contextData =
+    JSON.parse(localStorage.getItem("contextState")) || initialState;
+  const [state, dispatch] = useReducer(shopReducer, contextData);
+  useEffect(() => {
+    localStorage.setItem("contextState", JSON.stringify(state));
+  }, [state]);
+
   return (
-    <AppContext.Provider value={{ state: state, dispatch: dispatch }}>
+    <AppContext.Provider value={{ state: contextData, dispatch: dispatch }}>
       <Layout>
         {state.showCartDrawer && <CartModal></CartModal>}
         <Switch>

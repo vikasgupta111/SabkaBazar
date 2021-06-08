@@ -6,7 +6,6 @@ import { Row, Col } from "react-bootstrap";
 import MediaQuery from "react-responsive";
 import lowestPriceLogo from "../../assets/img/lowest-price.png";
 import {
-  CartWrapper,
   CartHeader,
   CartContent,
   EmptyCartWrapper,
@@ -26,7 +25,6 @@ import {
   ADD_TO_CART,
   DELETE_FROM_CART,
 } from "../../context/actionTypes";
-// import { CartHeader } from "./StyledComponent";
 
 const URL = "http://localhost:3000";
 
