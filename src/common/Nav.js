@@ -84,14 +84,12 @@ export default function Nav() {
               <div>
                 <img src={cartImg} alt="cart" width="20px" height="20px"></img>
                 {state.cart.length + " Items"}
-                {/* <Link to="/cart">{state.cart.length + " "}Items</Link> */}
               </div>
             </div>
           </MediaQuery>
           <MediaQuery maxDeviceWidth={1024}>
             <div>
               <img src={cartImg} alt="cart" width="20px" height="20px"></img>
-              {/* {state.cart.length + " Items"} */}
               <Link to="/cart">{state.cart.length + " "}Items</Link>
             </div>
           </MediaQuery>

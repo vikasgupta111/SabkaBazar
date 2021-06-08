@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Row, Col } from "react-bootstrap";
 
 export const CartWrapper = styled.div`
   width: 100%;
@@ -20,7 +19,6 @@ export const CartHeader = styled.div`
 export const CartContent = styled.div`
   overflow-y: scroll;
   background-color: rgb(245, 241, 241);
-  /* height: auto; */
   flex-grow: 1;
   max-width: 100%;
   overflow-x: hidden;

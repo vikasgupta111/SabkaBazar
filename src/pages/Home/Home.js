@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Carousel } from "react-bootstrap";
 import "./home.css";
 import { Col, Container, Row } from "react-bootstrap";
@@ -22,23 +22,8 @@ export default function Home() {
   const history = useHistory();
   const { dispatch } = useContext(AppContext);
 
-  const [data, setData] = useState([]);
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState();
-
   const categoriesVal = useApiData("http://localhost:5000/categories"); // categories api response
   const bannersList = useApiData("http://localhost:5000/banners"); //Banners api response
-
-  // useEffect(() => {
-  //   const banners = bannersList.map((item) => (
-  //     <img
-  //       width="90%"
-  //       src={`${item.bannerImageUrl}`}
-  //       alt={item.bannerImageAlt}
-  //     />
-  //   ));
-  //   setData(banners);
-  // }, [bannersList]);
 
   const handleCategoryClick = (id) => {
     dispatch({ type: HANDLE_CLICK_FROM_HOMESCREEN, payload: id });
