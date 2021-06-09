@@ -1,29 +1,50 @@
-import React from "react";
-import { Carousel } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
 import "./home.css";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { useContext } from "react";
 import { AppContext } from "../../context/userContext";
-import useApiData from "../../useApiData";
+import getDataFromAPI from "../../useApiData";
 import { HANDLE_CLICK_FROM_HOMESCREEN } from "../../context/actionTypes";
+import apiUrl from "../../constant/Constant";
 
-import {
-  CategoryWrapper,
-  Wrapper,
-  CategoryImg,
-  CategoryContent,
-  CategoryName,
-  CategoryClick,
-  CategoryDescription,
-} from "./StyledComponent";
+import { CategoryWrapper, Wrapper } from "./StyledComponent";
+import { CarouselComponent } from "../../common/Carousel";
+import { CategoryComponent } from "../../common/Category";
 
 export default function Home() {
   const history = useHistory();
+  const [categorydata, setCategorydata] = useState([]);
+  const [bannerData, setBanner] = useState([]);
   const { dispatch } = useContext(AppContext);
+  const cataegoryData = async () => {
+    const [categoriesVal, error] = await getDataFromAPI({
+      url: `${apiUrl}/categories`,
+      type: "GET",
+    });
+    console.log(categoriesVal);
+    if (!error) setCategorydata([...categoriesVal]);
+  };
 
-  const categoriesVal = useApiData("http://localhost:5000/categories"); // categories api response
-  const bannersList = useApiData("http://localhost:5000/banners"); //Banners api response
+  useEffect(() => {
+    cataegoryData();
+    // categories api response
+  }, []);
+
+  const banner = async () => {
+    const [bannersList, error] = await getDataFromAPI({
+      url: `${apiUrl}/banners`,
+      type: "GET",
+    }); //Banners api response
+    console.log(bannersList);
+    if (!error) {
+      setBanner([...bannersList]);
+    }
+  };
+
+  useEffect(() => {
+    banner();
+  }, []);
 
   const handleCategoryClick = (id) => {
     dispatch({ type: HANDLE_CLICK_FROM_HOMESCREEN, payload: id });
@@ -33,96 +54,14 @@ export default function Home() {
   return (
     <Wrapper>
       <Container className="category my__carousel_main ">
-        <Carousel
-          interval={1000}
-          controls={window.innerWidth >= 768 ? true : false}
-          indicators={true}
-          autoPlay={true}
-        >
-          {bannersList
-            .map((item) => (
-              <img
-                width="90%"
-                src={`${item.bannerImageUrl}`}
-                alt={item.bannerImageAlt}
-              />
-            ))
-            .map((item) => {
-              return <Carousel.Item>{item}</Carousel.Item>;
-            })}
-        </Carousel>
+        <CarouselComponent data={bannerData} />
       </Container>
       <Container>
         <CategoryWrapper>
-          {categoriesVal &&
-            categoriesVal.map((item, indx) => {
-              if (indx % 2 === 0) {
-                return (
-                  <Row className="category">
-                    <Col xs={5}>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          height: "100%",
-                        }}
-                      >
-                        <CategoryImg src={`${item.imageUrl}`} alt={item.name} />
-                      </div>
-                    </Col>
-                    <Col className="categoryDetails" xs={7}>
-                      <CategoryContent>
-                        <CategoryName>{item.name}</CategoryName>
-                        <CategoryDescription>
-                          {item.description}
-                        </CategoryDescription>
-                        <CategoryClick
-                          onClick={() => {
-                            handleCategoryClick(item.id);
-                          }}
-                        >
-                          {`Explore ${item.key}`}
-                        </CategoryClick>
-                      </CategoryContent>
-                    </Col>
-                  </Row>
-                );
-              } else {
-                return (
-                  <Row className="category">
-                    <Col xs={7} className="categoryDetails">
-                      <CategoryContent>
-                        <CategoryName>{item.name}</CategoryName>
-                        <CategoryDescription>
-                          {item.description}
-                        </CategoryDescription>
-                        <CategoryClick
-                          onClick={() => {
-                            handleCategoryClick(item.id);
-                          }}
-                        >
-                          {`Explore ${item.key}`}
-                        </CategoryClick>
-                      </CategoryContent>
-                    </Col>
-
-                    <Col xs={5}>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          height: "100%",
-                        }}
-                      >
-                        <CategoryImg src={`${item.imageUrl}`} alt={item.name} />
-                      </div>
-                    </Col>
-                  </Row>
-                );
-              }
-            })}
+          <CategoryComponent
+            data={categorydata}
+            onClick={handleCategoryClick}
+          />
         </CategoryWrapper>
       </Container>
     </Wrapper>

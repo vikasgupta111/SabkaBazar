@@ -4,7 +4,6 @@
 .box {
   display: flex;
   flex-direction: column;
-  /* border-bottom: 1px dashed rgb(155, 151, 151); */
   height: 100%;
   margin: 10px;
 }
@@ -60,7 +59,6 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  /* height: 35px; */
   margin: 4px 2px;
 
   cursor: pointer;
@@ -134,10 +132,6 @@
   .itemBorder {
     border-bottom: 1px dashed rgb(155, 151, 151);
   }
-
-  /* .itemBorder div {
-    height: 40px;
-  } */
 }
 
 @media (max-width: 480px) {

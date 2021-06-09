@@ -19,14 +19,14 @@ import {
   CartBackground,
   CloseIcon,
   CartItem,
+  RowItem,
+  ItemBox,
 } from "./StyledComponent";
 import {
   TOGGLE_CART_DRAWER,
   ADD_TO_CART,
   DELETE_FROM_CART,
 } from "../../context/actionTypes";
-
-const URL = "http://localhost:3000";
 
 export default function CartModal() {
   const history = useHistory();
@@ -89,18 +89,18 @@ export default function CartModal() {
             )}
 
             {getFrequencyOfItems(state.cart).map((val) => (
-              <CartItem>
-                <Row key={val.item.id} className="rowItem">
-                  <Col sm={2} md={3} className="itembox">
+              <CartItem key={val.item.id}>
+                <RowItem key={val.item.id}>
+                  <ItemBox sm={2} md={3}>
                     <img
-                      src={`${URL}${val.item.imageURL}`}
+                      src={`${val.item.imageURL}`}
                       alt="Sabka Bazar"
                       width="80px"
                       height="80px"
                     />
-                  </Col>
+                  </ItemBox>
 
-                  <Col sm={8} md={6} className="itembox">
+                  <ItemBox sm={8} md={6}>
                     <div>{val.item.name}</div>
                     <div>
                       <CounterButton
@@ -114,14 +114,14 @@ export default function CartModal() {
                       </CounterButton>
                       <div>{"  x Rs." + val.item.price}</div>
                     </div>
-                  </Col>
+                  </ItemBox>
 
                   <Col sm={2} md={3}>
                     <ItemTotalCost>
                       {"Rs." + val.item.price * val.count}
                     </ItemTotalCost>
                   </Col>
-                </Row>
+                </RowItem>
               </CartItem>
             ))}
             {state.cart.length !== 0 && (

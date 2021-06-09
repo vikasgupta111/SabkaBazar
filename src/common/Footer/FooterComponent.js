@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import "./nav.css";
+import "../Navbar/nav.css";
 
 export default function Footer() {
   return (
