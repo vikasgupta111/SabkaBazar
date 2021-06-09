@@ -2,17 +2,17 @@ import React from "react";
 import MediaQuery from "react-responsive";
 
 import { Link } from "react-router-dom";
-import logo from "../assets/img/logo.png";
-import cartImg from "../assets/img/cart.svg";
+import logo from "../../assets/img/logo.png";
+import cartImg from "../../assets/img/cart.svg";
 import "./nav.css";
 import { useContext } from "react";
-import { AppContext } from "../context/userContext";
+import { AppContext } from "../../context/userContext";
 import { Container } from "react-bootstrap";
 import {
   TOGGLE_CART_DRAWER,
   LOGOUT,
   HANDLE_CLICK_FROM_PRODUCT,
-} from "../context/actionTypes";
+} from "../../context/actionTypes";
 
 export default function Nav() {
   const { state, dispatch } = useContext(AppContext);

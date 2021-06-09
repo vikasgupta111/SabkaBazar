@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Row, Col } from "react-bootstrap";
 export const CartWrapper = styled.div`
   width: 100%;
 `;
@@ -102,6 +102,8 @@ export const CounterButton = styled.div`
   border-radius: 50%;
   background-color: IndianRed;
   cursor: pointer;
+  margin-right: 5px;
+  margin-left: 5px;
 `;
 
 export const ItemTotalCost = styled.div`
@@ -161,21 +163,22 @@ export const CloseIcon = styled.div`
   cursor: pointer;
 `;
 
-export const CartItem = styled.div`
-  .rowItem {
-    background-color: white;
-    margin-top: 10px;
-  }
-  .itembox {
-    display: flex;
-    flex-direction: column;
-    line-height: 15px;
-    font-size: 12px;
-    font-weight: bold;
-    justify-content: center;
-    align-items: flex-start;
-  }
-  .itembox div {
+export const CartItem = styled.div``;
+
+export const RowItem = styled(Row)`
+  background-color: white;
+  margin-top: 10px;
+`;
+export const ItemBox = styled(Col)`
+  display: flex;
+  flex-direction: column;
+  line-height: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: flex-start;
+
+  div {
     display: flex;
   }
 `;

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AppContext } from "../../context/userContext";
 import { useContext } from "react";
 import { useHistory } from "react-router";
-import { Row, Col, Container } from "react-bootstrap";
+import { Col, Container } from "react-bootstrap";
 import MediaQuery from "react-responsive";
 import {
   CartWrapper,
@@ -16,6 +16,8 @@ import {
   ItemTotalCost,
   LowestPrice,
   CartItem,
+  RowItem,
+  ItemBox,
 } from "./StyledComponent";
 import lowestPriceLogo from "../../assets/img/lowest-price.png";
 import {
@@ -23,8 +25,6 @@ import {
   ADD_TO_CART,
   DELETE_FROM_CART,
 } from "../../context/actionTypes";
-
-const URL = "http://localhost:3000";
 
 export default function CartResponsive() {
   const history = useHistory();
@@ -88,16 +88,16 @@ export default function CartResponsive() {
 
               {getFrequencyOfItems(state.cart).map((val) => (
                 <CartItem>
-                  <Row key={val.item.id} className="rowItem">
-                    <Col md={2} xs={3} className="itembox">
+                  <RowItem key={val.item.id}>
+                    <ItemBox md={2} xs={3}>
                       <img
-                        src={`${URL}${val.item.imageURL}`}
+                        src={`${val.item.imageURL}`}
                         alt="Sabka Bazar"
                         width="80px"
                         height="80px"
                       />
-                    </Col>
-                    <Col md={8} xs={6} className="itembox">
+                    </ItemBox>
+                    <ItemBox md={8} xs={6}>
                       <p>{val.item.name}</p>
                       <div>
                         <CounterButton
@@ -113,14 +113,14 @@ export default function CartResponsive() {
                         </CounterButton>
                         <div>{"  x Rs." + val.item.price}</div>
                       </div>
-                    </Col>
+                    </ItemBox>
 
                     <Col md={2} xs={3}>
                       <ItemTotalCost>
                         {"Rs." + val.item.price * val.Count}
                       </ItemTotalCost>
                     </Col>
-                  </Row>
+                  </RowItem>
                 </CartItem>
               ))}
               {state.cart.length !== 0 && (

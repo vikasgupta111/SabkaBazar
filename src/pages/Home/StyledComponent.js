@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Row, Col } from "react-bootstrap";
 export const Wrapper = styled.div`
   margin-top: 3px;
 `;
@@ -30,4 +30,28 @@ export const CategoryClick = styled.div`
   display: inline-block;
   padding: 0px 5px;
   cursor: pointer;
+`;
+
+export const RowBootstrap = styled(Row)`
+  -webkit-box-shadow: 0 4px 4px -4px gray;
+  -moz-box-shadow: 0 4px 4px -4px gray;
+  box-shadow: 0 4px 4px -4px gray;
+  margin-bottom: 10px;
+  padding: 10px 0px;
+
+  &:last-child {
+    box-shadow: none;
+  }
+`;
+
+export const CarouselWrapper = styled.div`
+  -webkit-box-shadow: 0 4px 4px -4px gray;
+  -moz-box-shadow: 0 4px 4px -4px gray;
+  box-shadow: 0 4px 4px -4px gray;
+  margin-bottom: 10px;
+  padding: 10px 0px;
+`;
+
+export const ColBootstrap = styled(Col)`
+  text-align: center;
 `;

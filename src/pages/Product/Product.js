@@ -6,27 +6,50 @@ import {
   HANDLE_CLICK_FROM_PRODUCT,
   HANDLE_CLICK_FROM_CATEGORY,
 } from "../../context/actionTypes";
-import ProductData from "./ProductData";
+import { ProductData } from "../../common/ProductItem";
 import "./productStyle.css";
 import { useContext } from "react";
 import { AppContext } from "../../context/userContext";
-import useApiData from "../../useApiData";
+import getDataFromAPI from "../../useApiData";
+import apiUrl from "../../constant/Constant";
 
 export default function Product() {
   const { state, dispatch } = useContext(AppContext);
   const [data, setData] = useState([]);
   const [toggleCategory, setToggleCategory] = useState(true);
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState();
+
   const [categorieArr, setCategoriesArr] = useState([]);
   const [categoryID, setCategoryID] = useState("");
 
-  const categoriesVal = useApiData("http://localhost:5000/categories"); //categories api response
-  const productList = useApiData("http://localhost:5000/products"); // products api response
+  const Products = async () => {
+    const [productList, error] = await getDataFromAPI({
+      url: `${apiUrl}/products`,
+      type: "GET",
+    });
+    console.log(productList);
+    if (!error) {
+      setData([...productList]);
+      setCategoriesArr([]);
+    }
+  };
+
   useEffect(() => {
-    setData(productList);
-    setCategoriesArr([]);
-  }, [productList]);
+    Products();
+  }, []);
+
+  const cataegoryData = async () => {
+    const [categoriesVal, error] = await getDataFromAPI({
+      url: `${apiUrl}/categories`,
+      type: "GET",
+    });
+    console.log(categoriesVal);
+    if (!error) setCategoriesArr([...categoriesVal]);
+  };
+
+  useEffect(() => {
+    cataegoryData();
+    // categories api response
+  }, []);
 
   const handleCategoryClick = (id) => {
     setCategoryID((prevState) => {
@@ -59,22 +82,19 @@ export default function Product() {
           </div>
           {toggleCategory ? (
             <div className="container1">
-              {categoriesVal &&
-                categoriesVal.map((item) => (
-                  <>
-                    <div
-                      className={`categoryItem ${
-                        categoryID === item.id ||
-                        state.categoryClick === item.id
-                          ? "categoryItemfocus"
-                          : null
-                      }`}
-                      key={item.id}
-                      onClick={() => handleCategoryClick(item.id)}
-                    >
-                      {item.name}
-                    </div>
-                  </>
+              {categorieArr &&
+                categorieArr.map((item) => (
+                  <div
+                    className={`categoryItem ${
+                      categoryID === item.id || state.categoryClick === item.id
+                        ? "categoryItemfocus"
+                        : null
+                    }`}
+                    key={item.id}
+                    onClick={() => handleCategoryClick(item.id)}
+                  >
+                    {item.name}
+                  </div>
                 ))}
             </div>
           ) : null}
