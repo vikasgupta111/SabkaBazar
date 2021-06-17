@@ -2,7 +2,7 @@ import React from "react";
 import { AppContext } from "../../context/userContext";
 import { useContext } from "react";
 import { useHistory } from "react-router";
-import { Row, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import MediaQuery from "react-responsive";
 import lowestPriceLogo from "../../assets/img/lowest-price.png";
 import {

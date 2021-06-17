@@ -11,6 +11,7 @@ import { AppContext } from "./context/userContext";
 import { useReducer } from "react";
 import { shopReducer, initialState } from "./context/reducer";
 import CartResponsive from "./pages/Cart/CartResponsive";
+import { Alerts } from "./common/Alerts";
 
 function App() {
   const [state, dispatch] = useReducer(shopReducer, initialState);
@@ -19,6 +20,7 @@ function App() {
     <AppContext.Provider value={{ state, dispatch: dispatch }}>
       <Layout>
         {state.showCartDrawer && <CartModal></CartModal>}
+        <Alerts />
         <Switch>
           <Route exact path="/" component={Home}></Route>
           <Route exact path="/product" component={Product}></Route>

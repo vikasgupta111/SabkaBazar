@@ -1,5 +1,4 @@
 async function getDataFromAPI({ url, type, body }) {
-  console.log(url, type, body);
   try {
     if (type === "POST") {
       const res = await fetch(url, {
@@ -8,7 +7,6 @@ async function getDataFromAPI({ url, type, body }) {
         body: body,
       });
       const data = await res.json();
-      console.log(data);
       return [data, ""];
     }
 
@@ -16,7 +14,6 @@ async function getDataFromAPI({ url, type, body }) {
     const data = await res.json();
     return [data, ""];
   } catch (e) {
-    console.log(e);
     return ["", e.message];
   }
 }

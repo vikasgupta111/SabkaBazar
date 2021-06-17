@@ -15,7 +15,8 @@ export default function ProductData({ allitems, categoryID }) {
     const productID = item.id;
 
     const [data, error] = await getDataFromAPI({
-      url: `${apiUrl}/addToCart`,
+      url: "https://my-json-server.typicode.com/vikasgupta111/dbRepo/addToCart",
+      //`${apiUrl}/addToCart`,
       type: "POST",
       body: productID,
     });

@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import queryString from "query-string";
 import {
   HANDLE_CLICK_FROM_PRODUCT,
   HANDLE_CLICK_FROM_CATEGORY,
@@ -12,8 +13,10 @@ import { useContext } from "react";
 import { AppContext } from "../../context/userContext";
 import getDataFromAPI from "../../useApiData";
 import apiUrl from "../../constant/Constant";
+import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 
-export default function Product() {
+function Product(props) {
   const { state, dispatch } = useContext(AppContext);
   const [data, setData] = useState([]);
   const [toggleCategory, setToggleCategory] = useState(true);
@@ -23,27 +26,36 @@ export default function Product() {
 
   const Products = async () => {
     const [productList, error] = await getDataFromAPI({
-      url: `${apiUrl}/products`,
+      url: "https://my-json-server.typicode.com/vikasgupta111/productsServer/products",
+      //`${apiUrl}/products`,
       type: "GET",
     });
-    console.log(productList);
     if (!error) {
       setData([...productList]);
-      setCategoriesArr([]);
+      // setCategoriesArr([]);
     }
   };
 
   useEffect(() => {
+    // const query = queryString.parse(props.location.search);
+    // if (query.category) {
+    //   if (!categoryID) {
+    //     setCategoryID(query.category);
+    //   }
+    // }
     Products();
   }, []);
 
   const cataegoryData = async () => {
     const [categoriesVal, error] = await getDataFromAPI({
-      url: `${apiUrl}/categories`,
+      url: "https://my-json-server.typicode.com/vikasgupta111/dbRepo/categories",
+      //`${apiUrl}/categories`,
       type: "GET",
     });
-    console.log(categoriesVal);
-    if (!error) setCategoriesArr([...categoriesVal]);
+
+    if (!error) {
+      setCategoriesArr([...categoriesVal]);
+    }
   };
 
   useEffect(() => {
@@ -54,7 +66,8 @@ export default function Product() {
   const handleCategoryClick = (id) => {
     setCategoryID((prevState) => {
       if (prevState === id) {
-        return dispatch({ type: HANDLE_CLICK_FROM_PRODUCT });
+        dispatch({ type: HANDLE_CLICK_FROM_PRODUCT });
+        return null;
       } else {
         dispatch({ type: HANDLE_CLICK_FROM_CATEGORY });
         return id;
@@ -84,6 +97,7 @@ export default function Product() {
             <div className="container1">
               {categorieArr &&
                 categorieArr.map((item) => (
+                  // <Link to={`/product/?category=${item.id}`}>
                   <div
                     className={`categoryItem ${
                       categoryID === item.id || state.categoryClick === item.id
@@ -95,6 +109,7 @@ export default function Product() {
                   >
                     {item.name}
                   </div>
+                  // </Link>
                 ))}
             </div>
           ) : null}
@@ -109,3 +124,5 @@ export default function Product() {
     </Container>
   );
 }
+export default Product;
+// export default withRouter(Product);

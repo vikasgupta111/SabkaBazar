@@ -11,6 +11,7 @@ import apiUrl from "../../constant/Constant";
 import { CategoryWrapper, Wrapper } from "./StyledComponent";
 import { CarouselComponent } from "../../common/Carousel";
 import { CategoryComponent } from "../../common/Category";
+import { SetAlertMessage } from "../../utilities/alert";
 
 export default function Home() {
   const history = useHistory();
@@ -19,11 +20,18 @@ export default function Home() {
   const { dispatch } = useContext(AppContext);
   const cataegoryData = async () => {
     const [categoriesVal, error] = await getDataFromAPI({
-      url: `${apiUrl}/categories`,
+      url: "https://my-json-server.typicode.com/vikasgupta111/dbRepo/categories",
+      // `${apiUrl}/categories`,
       type: "GET",
     });
-    console.log(categoriesVal);
-    if (!error) setCategorydata([...categoriesVal]);
+
+    if (!error) {
+      // SetAlertMessage(dispatch, "API_SUCCESS", "Successfully Fetched Category");
+
+      setCategorydata([...categoriesVal]);
+    } else {
+      // SetAlertMessage(dispatch, "API_ERROR", "Error in Fetching Category");
+    }
   };
 
   useEffect(() => {
@@ -33,12 +41,15 @@ export default function Home() {
 
   const banner = async () => {
     const [bannersList, error] = await getDataFromAPI({
-      url: `${apiUrl}/banners`,
+      url: "https://my-json-server.typicode.com/vikasgupta111/dbRepo/banners",
+      //`${apiUrl}/banners`,
       type: "GET",
     }); //Banners api response
-    console.log(bannersList);
     if (!error) {
+      // SetAlertMessage(dispatch, "API_SUCCESS", "Successfully Fetched Banners");
       setBanner([...bannersList]);
+    } else {
+      // SetAlertMessage(dispatch, "API_ERROR", "Error in Fetching Banners");
     }
   };
 
