@@ -1,4 +1,4 @@
-import { LOGIN } from "./actionTypes";
+import { API_ERROR, API_SUCCESS, LOGIN } from "./actionTypes";
 import { LOGOUT } from "./actionTypes";
 import { TOGGLE_CART_DRAWER } from "./actionTypes";
 import { HANDLE_CLICK_FROM_PRODUCT } from "./actionTypes";
@@ -13,6 +13,8 @@ export const initialState = {
   loggedIn: false,
   showCartDrawer: false,
   categoryClick: "",
+  error: "",
+  message: "",
 };
 
 export const shopReducer = (state = initialState, action) => {
@@ -36,8 +38,13 @@ export const shopReducer = (state = initialState, action) => {
       return { ...state, cart: [...state.cart, action.payload] };
     }
     case DELETE_FROM_CART: {
-      console.log(state.cart, action.payload);
       return removeElement(state, action.payload);
+    }
+    case API_ERROR: {
+      return { ...state, error: action.payload };
+    }
+    case API_SUCCESS: {
+      return { ...state, message: action.payload };
     }
 
     default:
